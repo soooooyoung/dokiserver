@@ -4,6 +4,9 @@ export const env = {
   app: {
     port: Number(process.env.PORT) || 9000,
   },
+  utils: {
+    JWT_TOKEN_SECRET: process.env.JWT_TOKEN_SECRET,
+  },
   db: {
     DB_HOST: process.env.MY_SQL_DB_HOST,
     DB_USER: process.env.MY_SQL_DB_USER,
