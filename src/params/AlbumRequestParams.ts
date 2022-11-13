@@ -1,14 +1,4 @@
-import {
-  IsString,
-  IsNotEmpty,
-  IsIn,
-  ValidateIf,
-  Length,
-  IsOptional,
-  isNotEmpty,
-  Contains,
-  IsNumber,
-} from "class-validator";
+import { IsString, IsNotEmpty } from "class-validator";
 import BaseParams from "./BaseParams";
 
 export default class AlbumRequestParams extends BaseParams {

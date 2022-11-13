@@ -6,10 +6,10 @@ export class AlbumService {
   public fetchAlbum = async () => {};
 
   public saveAlbum = async () => {
-    //TODO save array of pictures
+    //TODO: save array of images
   };
 
   public fetchImageById = async () => {
-    //TODO: fecth single picture by id;
+    //TODO: fetch single image by id;
   };
 }
