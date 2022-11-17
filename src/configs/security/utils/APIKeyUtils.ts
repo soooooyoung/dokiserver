@@ -6,8 +6,9 @@ import {
 } from "../../../exceptions";
 
 export class APIKeyUtils {
-  private SECRETKEY = env.utils.API_KEY_SECRET;
+  private SECRETKEY = env.utils.API_KEY_SECRET || "";
   private HMAC_ALGO = "sha3-256";
+
   private SEPARATOR = ".";
 
   // private hmac: string;
@@ -33,17 +34,12 @@ export class APIKeyUtils {
 
   validateKey = (key: string, serviceId: string) => {
     try {
-      if (
+      return (
         key ===
         createHmac(this.HMAC_ALGO, this.SECRETKEY!)
           .update(serviceId)
           .digest("hex")
-      ) {
-        console.log("MATCH");
-        return true;
-      } else {
-        throw new InvalidKeyException();
-      }
+      );
     } catch (e) {
       throw new IllegalStateException("failed to create HMAC:" + e);
     }
@@ -51,7 +47,7 @@ export class APIKeyUtils {
 
   createKey = (value: string) => {
     try {
-      return createHmac(this.HMAC_ALGO, this.SECRETKEY!)
+      return createHmac(this.HMAC_ALGO, this.SECRETKEY)
         .update(value)
         .digest("hex");
     } catch (e) {
