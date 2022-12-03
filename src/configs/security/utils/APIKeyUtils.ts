@@ -4,52 +4,47 @@ import {
   IllegalStateException,
   InvalidKeyException,
 } from "../../../exceptions";
+import { EncryptionUtils } from "./EncryptionUtils";
 
 export class APIKeyUtils {
   private SECRETKEY = env.utils.API_KEY_SECRET || "";
   private HMAC_ALGO = "sha3-256";
 
-  private SEPARATOR = ".";
+  private SEPARATOR = ":";
 
-  // private hmac: string;
-
-  // private replaceAll = (
-  //   str: string,
-  //   searchValue: string,
-  //   replaceValue: string
-  // ) => str.split(searchValue).join(replaceValue);
-
-  // private swap = (str: string, input: string, output: string) => {
-  //   for (let i = 0; i < input.length; i++)
-  //     str = this.replaceAll(str, input[i], output[i]);
-
-  //   return str;
-  // };
-
-  // private doCreateHmac = () =>
-  //   createHmac(this.HMAC_ALGO, Buffer.from(this.SECRETKEY!, "base64")).digest(
-  //     "base64"
-  //   );
-  // TODO: logger factory for api class
-
-  validateKey = (key: string, serviceId: string) => {
+  validateKey = (key: string) => {
     try {
-      return (
-        key ===
-        createHmac(this.HMAC_ALGO, this.SECRETKEY!)
-          .update(serviceId)
-          .digest("hex")
-      );
+      const parts: string[] = key.split(this.SEPARATOR);
+      if (parts.length === 2 && parts[0].length > 0 && parts[2].length > 0) {
+        const userHex = parts[0];
+        const hash = parts[1];
+
+        const validHash: boolean =
+          createHmac(this.HMAC_ALGO, this.SECRETKEY)
+            .update(userHex)
+            .digest("hex") === hash;
+
+        if (validHash) {
+          const enc = new EncryptionUtils();
+          const serviceId = enc.decrypt(userHex);
+          // TODO: Check Service Id from DB and return boolean
+          return true;
+        }
+      }
     } catch (e) {
       throw new IllegalStateException("failed to create HMAC:" + e);
     }
   };
 
-  createKey = (value: string) => {
+  createKeyForServiceId = (serviceId: string) => {
     try {
-      return createHmac(this.HMAC_ALGO, this.SECRETKEY)
-        .update(value)
+      const enc = new EncryptionUtils();
+      const userHex = enc.encrypt(serviceId);
+      const hash = createHmac(this.HMAC_ALGO, this.SECRETKEY)
+        .update(userHex)
         .digest("hex");
+
+      return `${userHex}${this.SEPARATOR}${hash}`;
     } catch (e) {
       throw new IllegalStateException("failed to create HMAC:" + e);
     }

@@ -3,7 +3,7 @@ import { env } from "configs/env";
 import { IllegalStateException } from "exceptions";
 
 export class EncryptionUtils {
-  private SECRETKEY = env.utils.API_KEY_SECRET || "";
+  private SECRETKEY = env.utils.API_KEY_SECRET;
   private ALGORITHM = "aes-256-gcm";
   private SEPARATOR = ":";
 
@@ -18,7 +18,7 @@ export class EncryptionUtils {
       const iv = this.getIv();
       const cipher = crypto.createCipheriv(
         this.ALGORITHM,
-        Buffer.from(this.SECRETKEY),
+        Buffer.from(this.SECRETKEY!),
         iv
       );
       const encrypted = cipher.update(data);
@@ -42,7 +42,7 @@ export class EncryptionUtils {
       const encrypted = Buffer.from(encryptedArray[1], "hex");
       const decipher = crypto.createDecipheriv(
         this.ALGORITHM,
-        Buffer.from(this.SECRETKEY),
+        Buffer.from(this.SECRETKEY!),
         iv
       );
       const decrypted = decipher.update(encrypted);
