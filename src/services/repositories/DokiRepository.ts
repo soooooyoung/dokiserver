@@ -1,4 +1,5 @@
 import type { Knex } from "knex";
+import { qb } from "utils/KnexConnector";
 
 interface BaseRepository<T> {
   findAll(item: Partial<T>): Promise<T[]>;
@@ -6,11 +7,10 @@ interface BaseRepository<T> {
 }
 
 export abstract class DokiRepository<T> implements BaseRepository<T> {
-  constructor(public readonly knex: Knex, public readonly tableName: string) {}
-
-  public get qb(): Knex.QueryBuilder {
-    return this.knex(this.tableName);
+  constructor(public readonly tableName: string) {
+    this.qb = qb(tableName);
   }
+  public readonly qb: Knex.QueryBuilder;
 
   findAll(item: Partial<T>): Promise<T[]> {
     return this.qb.where(item).select();
