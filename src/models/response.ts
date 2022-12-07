@@ -1,4 +1,4 @@
-import { BaseException } from "exceptions/BaseException";
+import { BaseException } from "models/exceptions/BaseException";
 
 export interface DokiResponse {
   success: boolean;

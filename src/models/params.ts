@@ -3,8 +3,6 @@ import { IsNumberString, Length, IsNotEmpty } from "class-validator";
 export class BaseHeaderParam {
   @IsNotEmpty()
   public "doki-apikey": string;
-  @IsNotEmpty()
-  public "service-id": string;
 }
 export class BaseBodyParam {}
 

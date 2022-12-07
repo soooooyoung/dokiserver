@@ -1,5 +1,5 @@
 import { createPool, Pool } from "mysql";
-import { env } from "../../configs/env";
+import { env } from "../configs/env";
 const dataSource = env.db;
 
 let pool: Pool;
