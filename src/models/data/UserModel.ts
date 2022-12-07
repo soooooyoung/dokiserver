@@ -1,7 +1,7 @@
 import { BaseModel } from "./BaseModel";
 
 type AccountType = "KAKAO" | "NAVER" | "EMAIL" | "ANONYMOUS";
-type AccountStatus = "ACTIVE" | "INACTIVE" | "LOCKED" | "DELETED";
+type AccountStatus = "ACTIVE" | "INACTIVE" | "BLOCKED" | "DELETED";
 
 export class UserModel extends BaseModel {
   private username: string;

@@ -1,10 +1,10 @@
 "use strict";
 import "reflect-metadata";
 import { DokiServer } from "./server";
-import * as MySQLConnector from "./utils/mysql.connector.sql";
+import * as MySQLConnector from "./utils/KnexConnector";
 
 async function start(): Promise<void> {
-  MySQLConnector.init();
+  MySQLConnector.initPool();
   const server = new DokiServer();
   await server.startServer();
 }

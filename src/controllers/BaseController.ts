@@ -2,7 +2,7 @@ import { Response } from "express";
 import { BaseHeaderParam } from "models";
 import { JsonController } from "routing-controllers";
 import { Service } from "typedi";
-import { APIKeyUtils } from "../configs/security/utils/APIKeyUtils";
+import { APIKeyUtils } from "../utils/security/APIKeyUtils";
 
 @Service()
 @JsonController()
