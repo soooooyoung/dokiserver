@@ -9,7 +9,7 @@ import {
 } from "routing-controllers";
 import { AlbumService } from "../services/AlbumService";
 import { Inject, Service } from "typedi";
-import AlbumRequestParams from "../params/AlbumRequestParams";
+import AlbumRequestParams from "../models/params/AlbumRequestParams";
 
 @Service()
 @JsonController("/album")

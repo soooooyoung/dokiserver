@@ -10,7 +10,7 @@ export class UserModel extends BaseModel {
   private type: AccountType;
   private status: AccountStatus;
   private email: string;
-  private profileImageUrl?: string;
+  private profileImgUrl?: string;
 
   constructor(
     username: string,
@@ -22,19 +22,19 @@ export class UserModel extends BaseModel {
     profileImageUrl?: string
   ) {
     super();
+    this.userId = userId;
     this.username = username;
     this.password = password;
-    this.userId = userId;
     this.type = type;
     this.status = status;
     this.email = email;
-    this.profileImageUrl = profileImageUrl;
+    this.profileImgUrl = profileImageUrl;
   }
 
   public getUserId() {
     return this.userId;
   }
   public setProfileImageUrl(url?: string) {
-    this.profileImageUrl = url;
+    this.profileImgUrl = url;
   }
 }

@@ -13,7 +13,7 @@ import { AuthService } from "../services/AuthService";
 import { Inject, Service } from "typedi";
 import { DokiResponse, LoginParam, BaseHeaderParam } from "../models";
 import { BaseController } from "./BaseController";
-import { ResponseUtils } from "./utils/ResponseUtils";
+import { ResponseUtils } from "../utils/ResponseUtils";
 
 @Service()
 @JsonController("/auth")
@@ -34,7 +34,7 @@ export class AuthController extends BaseController {
   ) {
     try {
       const response = new ResponseUtils();
-      if (this.checkAuth(header["doki-apikey"], header["service-id"])) {
+      if (this.checkAuth((key) => header[key])) {
         // TODO login and return user data
         const response: DokiResponse = await this.authService.login();
       }

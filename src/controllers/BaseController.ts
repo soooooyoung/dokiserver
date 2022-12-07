@@ -1,4 +1,5 @@
 import { Response } from "express";
+import { BaseHeaderParam } from "models";
 import { JsonController } from "routing-controllers";
 import { Service } from "typedi";
 import { APIKeyUtils } from "../configs/security/utils/APIKeyUtils";
@@ -8,6 +9,11 @@ import { APIKeyUtils } from "../configs/security/utils/APIKeyUtils";
 export class BaseController {
   private apiKeyUtils: APIKeyUtils = new APIKeyUtils();
 
-  protected checkAuth = (apiKey: string) =>
-    this.apiKeyUtils.validateKey(apiKey);
+  protected checkAuth = (
+    getKey: (keyName: keyof BaseHeaderParam) => string
+  ) => {
+    this.apiKeyUtils.validateKey(getKey("doki-apikey"));
+
+    return true;
+  };
 }

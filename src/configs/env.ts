@@ -6,6 +6,7 @@ export const env = {
   },
   utils: {
     JWT_TOKEN_SECRET: process.env.JWT_TOKEN_SECRET,
+    ENCRYPT_KEY_SECRET: process.env.ENCRYPT_KEY_SECRET,
     API_KEY_SECRET: process.env.API_KEY_SECRET,
   },
   db: {

@@ -1,4 +1,4 @@
-import { BaseException } from "exceptions";
+import { BaseException } from "models/exceptions";
 import { DokiResponse } from "models";
 
 export class ResponseUtils {

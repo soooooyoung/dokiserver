@@ -1,7 +1,7 @@
 import { env } from "../../env";
 import jwt from "jsonwebtoken";
 import { UserModel } from "../../../models/data/UserModel";
-import { NoResultException } from "../../../exceptions/NoResultException";
+import { NoResultException } from "../../../models/exceptions/NoResultException";
 
 export class TokenUtils {
   private accessTokenSecret = env.utils.JWT_TOKEN_SECRET;
