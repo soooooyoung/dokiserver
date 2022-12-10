@@ -1,9 +1,7 @@
-import { BaseModel } from "./BaseModel";
-
 type AccountType = "KAKAO" | "NAVER" | "EMAIL" | "ANONYMOUS";
 type AccountStatus = "ACTIVE" | "INACTIVE" | "BLOCKED" | "DELETED";
 
-export class UserModel extends BaseModel {
+export class UserModel {
   private username: string;
   private password: string;
   private userId: string;
@@ -21,7 +19,6 @@ export class UserModel extends BaseModel {
     email: string,
     profileImageUrl?: string
   ) {
-    super();
     this.userId = userId;
     this.username = username;
     this.password = password;
@@ -37,4 +34,14 @@ export class UserModel extends BaseModel {
   public setProfileImageUrl(url?: string) {
     this.profileImgUrl = url;
   }
+}
+
+export interface User {
+  username: string;
+  password: string;
+  userId: string;
+  type: AccountType;
+  status: AccountStatus;
+  email: string;
+  profileImageUrl?: string;
 }

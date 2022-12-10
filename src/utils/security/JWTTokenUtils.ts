@@ -1,6 +1,6 @@
 import { env } from "../../configs/env";
 import jwt from "jsonwebtoken";
-import { UserModel } from "../../models/data/UserModel";
+import { UserModel } from "../../models/data/user";
 import { NoResultException } from "../../models/exceptions/NoResultException";
 
 export class TokenUtils {

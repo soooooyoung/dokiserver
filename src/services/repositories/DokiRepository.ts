@@ -1,5 +1,5 @@
 import type { Knex } from "knex";
-import { qb } from "utils/KnexConnector";
+import { qb } from "../../utils/KnexConnector";
 
 interface BaseRepository<T> {
   findAll(item: Partial<T>): Promise<T[]>;
@@ -16,8 +16,11 @@ export abstract class DokiRepository<T> implements BaseRepository<T> {
     return this.qb.where(item).select();
   }
 
-  findById(id: Partial<T>): Promise<T> {
-    return this.qb.where(id).first();
+  async findById(id: Partial<T>): Promise<T> {
+    return await this.qb
+      .where(id)
+      .first()
+      .then((row) => row);
   }
 
   async save(item: T): Promise<T> {

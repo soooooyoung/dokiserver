@@ -9,7 +9,6 @@ import {
 } from "routing-controllers";
 import { AlbumService } from "../services/AlbumService";
 import { Inject, Service } from "typedi";
-import AlbumRequestParams from "../models/params/AlbumRequestParams";
 
 @Service()
 @JsonController("/album")
@@ -43,10 +42,7 @@ export class AlbumController {
    */
   @HttpCode(200)
   @Post()
-  public async saveAlbum(
-    @Body() data: AlbumRequestParams,
-    @Res() res: Response
-  ) {
+  public async saveAlbum(@Res() res: Response) {
     try {
       return res.status(200).json({
         success: true,

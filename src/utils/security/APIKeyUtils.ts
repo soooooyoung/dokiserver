@@ -9,7 +9,7 @@ export class APIKeyUtils {
 
   private SEPARATOR = ".";
 
-  validateKey = (key: string) => {
+  parseFromKey = (key: string) => {
     try {
       const parts: string[] = key.split(this.SEPARATOR);
       if (parts.length === 2 && parts[0].length > 0 && parts[1].length > 0) {
@@ -22,11 +22,11 @@ export class APIKeyUtils {
         if (validHash) {
           const enc = new EncryptionUtils();
           const serviceId = enc.decrypt(userHex);
-          // TODO: Check Service Id from DB and return boolean
           console.log("SUCCESS", serviceId);
-          return true;
+          return serviceId;
+        } else {
+          throw new Error("invalid hash");
         }
-        return false;
       }
     } catch (e) {
       throw new IllegalStateException("failed to create HMAC:" + e);

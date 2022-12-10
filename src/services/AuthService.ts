@@ -1,6 +1,5 @@
 import { DokiResponse } from "models";
 import { Service } from "typedi";
-import { execute } from "../utils/mysql.connector.sql";
 
 @Service()
 export class AuthService {

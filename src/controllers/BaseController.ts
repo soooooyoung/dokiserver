@@ -1,6 +1,7 @@
 import { Response } from "express";
-import { BaseHeaderParam } from "models";
+import { BaseHeaderParam } from "../models";
 import { JsonController } from "routing-controllers";
+import { AuthRepository } from "../services/repositories";
 import { Service } from "typedi";
 import { APIKeyUtils } from "../utils/security/APIKeyUtils";
 
@@ -8,11 +9,17 @@ import { APIKeyUtils } from "../utils/security/APIKeyUtils";
 @JsonController()
 export class BaseController {
   private apiKeyUtils: APIKeyUtils = new APIKeyUtils();
+  private authRepository: AuthRepository = new AuthRepository();
 
-  protected checkAuth = (
+  protected checkAuth = async (
     getKey: (keyName: keyof BaseHeaderParam) => string
   ) => {
-    this.apiKeyUtils.validateKey(getKey("doki-apikey"));
+    const key = this.apiKeyUtils.parseFromKey(getKey("doki-apikey"));
+    console.log("KEY:", key);
+    if (key) {
+      const svc = await this.authRepository.findById({ svcId: key });
+      console.log("SVC:", svc);
+    }
 
     return true;
   };
