@@ -15,12 +15,12 @@ export class BaseController {
     getKey: (keyName: keyof BaseHeaderParam) => string
   ) => {
     const key = this.apiKeyUtils.parseFromKey(getKey("doki-apikey"));
-    console.log("KEY:", key);
+
     if (key) {
       const svc = await this.authRepository.findById({ svcId: key });
-      console.log("SVC:", svc);
+      return !svc.expired;
     }
 
-    return true;
+    return false;
   };
 }

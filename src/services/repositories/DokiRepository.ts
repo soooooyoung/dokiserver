@@ -17,10 +17,7 @@ export abstract class DokiRepository<T> implements BaseRepository<T> {
   }
 
   async findById(id: Partial<T>): Promise<T> {
-    return await this.qb
-      .where(id)
-      .first()
-      .then((row) => row);
+    return await this.qb.where(id).first();
   }
 
   async save(item: T): Promise<T> {

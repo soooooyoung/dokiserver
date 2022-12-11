@@ -34,10 +34,15 @@ export class AuthController extends BaseController {
   ) {
     try {
       const response = new ResponseUtils();
-      if (await this.checkAuth((key) => header[key])) {
-        // TODO login and return user data
-        const response: DokiResponse = await this.authService.login();
+
+      const auth = await this.checkAuth((key) => header[key]);
+      if (auth) {
+        const { user, accessToken } = await this.authService.login();
       }
+      // if (await this.checkAuth((key) => header[key])) {
+      //   // TODO login and return user data
+      //   const response: DokiResponse = await this.authService.login();
+      // }
 
       return res.status(200).json(response.getMono());
     } catch (e) {
